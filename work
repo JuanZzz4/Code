@@ -2,23 +2,23 @@
 from qiskit import QuantumCircuit, Aer, transpile, assemble
 from qiskit.visualization import plot_histogram
 
-# Crear un circuito cuántico con dos qubits y dos bits clásicos
+# Create a quantum circuit with two qubits and two classical bits
 qc = QuantumCircuit(2, 2)
 
-# Aplicar una puerta Hadamard al primer qubit
+# Apply a Hadamard gate to the first qubit
 qc.h(0)
 
-# Aplicar una puerta CNOT (Controlled-NOT) entre los dos qubits
+# Apply a CNOT (Controlled-NOT) gate between the two qubits
 qc.cx(0, 1)
 
-# Medir los qubits y almacenar los resultados en los bits clásicos
+# Measure qubits and store the results in classical bits
 qc.measure([0, 1], [0, 1])
 
-# Utilizar el simulador de Qiskit para ejecutar el circuito
+# Use the Qiskit simulator to run the circuit
 simulator = Aer.get_backend('qasm_simulator')
 compiled_circuit = transpile(qc, simulator)
 result = simulator.run(compiled_circuit).result()
 
-# Visualizar los resultados
+# View the results
 counts = result.get_counts(qc)
 plot_histogram(counts)
